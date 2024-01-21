@@ -1,6 +1,0 @@
-user mongoDB
-user: user_node_coffe
-pass: 0Bd3YUAVv2H8nItR
-CNN: mongodb+srv://user_node_coffe:<password>@coffecluster.z1nhx5c.mongodb.net/
-
-mongodb+srv://user_node_coffe:0Bd3YUAVv2H8nItR@coffecluster.z1nhx5c.mongodb.net/CafeDB
