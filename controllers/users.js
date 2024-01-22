@@ -17,27 +17,29 @@ const usuariosGet = (req = request, res = response) => {
     });
 }
 
-const usuariosPut = (req, res) => {
+const usuariosPut = async(req, res = response ) => {
 
     const { id } = req.params;
+    const { password, google, correo, ...resto} = req.body;
 
+    //TODO validar contra BD
+    if ( password ){
+        //Encriptar la contraseña
+        const salt = bcryptjs.genSalt();
+        resto.password = bcryptjs.hashSync( password, salt );
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, resto );
     res.status(500).json({
         msg: 'put API',
-        id
+        usuario
     });
 }
 
 const usuariosPost = async(req, res = response) => {
 
-    const errors = validationResult(req);
-    if( !errors.isEmpty() ){
-        return res.status(400).json(errors);
-    }
-
     const { nombre, correo, password, rol, estado} = req.body;
     const usuario = new Usuario( { nombre, correo, password, rol, estado} );
-
-    //Verificar si el correo existe
 
     //Encriptar la copntraseña
     const salt = bcryptjs.genSaltSync();
@@ -45,6 +47,7 @@ const usuariosPost = async(req, res = response) => {
 
     //Guardar en BD
     await usuario.save();
+
     res.json({
         msg: 'post API',
         usuario
