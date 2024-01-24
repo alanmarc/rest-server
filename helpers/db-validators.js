@@ -22,7 +22,7 @@ const existUserById = async( id ) => {
     //Verificar si el correo existe
     const idExist = await Usuario.findById(id);
     if ( !idExist ) {
-        throw new Error(`El ID: ${ correo }, no existe`);
+        throw new Error(`El ${ id }, no existe`);
     }
 }
 
